@@ -1,0 +1,16 @@
+package com.yedam.java.set;
+
+public class MemberTest {
+
+	public static void main(String[] args) {
+			et<Member> set = new HashSet<>();
+			
+			set.add(new Member("È«±æµ¿", 30));
+			set.add(new Member("È«±æµ¿", 30));
+			
+			System.out.println("ÃÑ °´Ã¼ ¼ö : " + set.size());
+		}
+
+	
+
+}

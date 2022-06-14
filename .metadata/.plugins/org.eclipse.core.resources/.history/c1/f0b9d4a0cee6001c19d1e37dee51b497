@@ -1,0 +1,36 @@
+package com.yedam.java.question;
+
+public class VIPCard implements Payment{
+	String name;
+	String grade;
+	double saleRatio;
+	int point;
+	double pointRatio;
+	
+	public VIPCard() {
+	}
+	@Override
+	public int offline(int price) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int online(int price) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int simple(int price) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void showCardInfo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,23 @@
+package com.yedam.java.map;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class StringTest {
+	public static void main(String[] args) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("½ÅÀ±±Ç", 85);
+		map.put("È«±æµ¿", 90);
+		map.put("µ¿Àå±º", 80);
+		System.out.println("ÃÑ Entry ¼ö : " + map.size());
+		
+		Integer returnVal = map.put("È«±æµ¿", 100);
+		
+		if(returnVal != null) {
+			System.out.println("±âÁ¸ °ª : " + returnVal);
+		}
+		System.out.println("\tÈ«±æµ¿ : " + map.get("È«±æµ¿"));
+		System.out.println();
+	}
+}

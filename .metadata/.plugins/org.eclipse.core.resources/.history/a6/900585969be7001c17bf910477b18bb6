@@ -1,0 +1,15 @@
+package com.yedam.java.ch1501;
+
+public class MainTest {
+
+	public static void main(String[] args) {
+		Bag bag = new Bag();
+		
+		bag.set(new Note());
+		Note note = (Note)bag.get();
+		
+		bag.set("½Å¿îÇÏ");
+		String name = (String)bag.get();
+	}
+
+}

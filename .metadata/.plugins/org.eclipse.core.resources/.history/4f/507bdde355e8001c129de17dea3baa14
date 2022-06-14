@@ -1,0 +1,15 @@
+package com.yedam.java.ch1601;
+
+public class RamdaTest {
+
+	public static void main(String[] args) {
+		//매개변수도 리턴타입도 없는 람다식
+		MyFunInterfaceA fa = () 
+				-> {String str = "method call1";
+					System.out.println(str);
+		};
+		
+		fa.method();
+	}
+
+}

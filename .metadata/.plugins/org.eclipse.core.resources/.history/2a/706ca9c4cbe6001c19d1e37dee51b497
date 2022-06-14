@@ -1,0 +1,10 @@
+package com.yedam.java.question;
+
+public class Sliver extends Member {
+
+	public Sliver(int record) {
+		super(record);
+		
+	}
+
+}

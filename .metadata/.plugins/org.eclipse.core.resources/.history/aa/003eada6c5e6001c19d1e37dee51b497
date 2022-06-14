@@ -1,0 +1,14 @@
+package com.yedam.java.question;
+
+public class Member {
+	
+	int record;
+	String grade;
+	
+	public Member(int record) {
+		
+	}
+	void showMemberInfo() {
+	}
+	abstract Member getMemberShip(int record);
+}
