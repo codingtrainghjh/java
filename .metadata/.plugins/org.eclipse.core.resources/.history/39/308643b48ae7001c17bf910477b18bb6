@@ -1,5 +1,0 @@
-package com.yedam.java.ch1201;
-
-public class ThreadB extends Thread {
-	//메소드를 오버라이딩하거나 클래스를 상속받아도 쓰레드는 돌아감
-}

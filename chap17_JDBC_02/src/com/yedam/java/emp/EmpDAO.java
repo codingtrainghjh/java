@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class EmpDAO {
-	// ½Ì±ÛÅæ
+	// ï¿½Ì±ï¿½ï¿½ï¿½
 	private static EmpDAO empDAO = null;
 
 	private EmpDAO() {
@@ -21,18 +21,18 @@ public class EmpDAO {
 
 	public static EmpDAO getInstance() {
 		if (empDAO == null) {
-			empDAO = new EmpDAO(); // ¸Þ¸ð¸® ÇÒ´ç ³¶ºñ¸¦ ¸·±âÀ§ÇÑ ¹æ¹ý, °ü¸® ¿ëÀÌ
+			empDAO = new EmpDAO(); // ï¿½Þ¸ï¿½ ï¿½Ò´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		}
 		return empDAO;
 	}
 
-	// Oracle ¿¬°á Á¤º¸
-	String jdbc_driver; // ¾ð´õ¹Ù´Â °ü·ÊÀûÀ¸·Î ¾²´Â °Í
+	// Oracle ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	String jdbc_driver; // ï¿½ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	String oracle_url;
 	String connectedId;
 	String connectedPwd;
 
-	// °¢ ¸Þ¼Òµå¿¡¼­ °øÅëÀûÀ¸·Î »ç¿ëÇÏ´Â ÇÊµå
+	// ï¿½ï¿½ ï¿½Þ¼Òµå¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Êµï¿½
 	Connection conn;
 	Statement stmt;
 	PreparedStatement pstmt;
@@ -41,14 +41,14 @@ public class EmpDAO {
 	public void connect() {
 		dbConfig();
 		try {
-			// 1.JDBC Driver ·Îµù
+			// 1.JDBC Driver ï¿½Îµï¿½
 			Class.forName(jdbc_driver);
-			// 2.DB ¼­¹ö Á¢¼Ó
+			// 2.DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			conn = DriverManager.getConnection(oracle_url, connectedId, connectedPwd);
 		} catch (ClassNotFoundException e) {
-			System.out.println("JDBC Driver ·Îµù ½ÇÆÐ");
+			System.out.println("JDBC Driver ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
 		} catch (SQLException e) {
-			System.out.println("DB Á¢¼Ó ½ÇÆÐ");
+			System.out.println("DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
 
@@ -68,7 +68,7 @@ public class EmpDAO {
 		connectedPwd = properties.getProperty("password");
 	}
 
-	// 4.ÀÚ¿ø ÇØÁ¦
+	// 4.ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void disconnect() {
 		try {
 			if (rs != null)
@@ -84,10 +84,10 @@ public class EmpDAO {
 		}
 	}
 
-	// 3.CRUD ½ÇÇà
-	// ÀüÃ¼Á¶È¸
+	// 3.CRUD ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½Ã¼ï¿½ï¿½È¸
 	public List<Employee> selectAll() {
-		List<Employee> list = new ArrayList<>();// ¸®ÅÏµÇ´Â Å¸ÀÔÀÌ ÀÖÀ» °æ¿ì¿¡´Â º¯¼ö°ªÀ» ¸ÕÀú ¼±¾ð
+		List<Employee> list = new ArrayList<>();// ï¿½ï¿½ï¿½ÏµÇ´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		try {
 			connect();
 			stmt = conn.createStatement();
@@ -118,7 +118,7 @@ public class EmpDAO {
 		return list;
 	}
 
-	// ´Ü°ÇÁ¶È¸
+	// ï¿½Ü°ï¿½ï¿½ï¿½È¸
 	public Employee selectOne(int employeeId) {
 		Employee emp = null;
 		try {
@@ -141,18 +141,18 @@ public class EmpDAO {
 				emp.setDepartmentId(rs.getInt("department_id"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // ºñ¿ö¸¸ µÎÁö ¸»°Í
+			e.printStackTrace(); // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		} finally {
 			disconnect();
 		}
 		return emp;
 	}
 
-	// µî·Ï
+	// ï¿½ï¿½ï¿½
 	public void insert(Employee emp) {
 		try {
 			connect();
-			String sql = "INSERT INTO employees VALUE(?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO employees VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, emp.getEmployeeId());
 			pstmt.setString(2, emp.getFirstName());
@@ -169,11 +169,11 @@ public class EmpDAO {
 			int result = pstmt.executeUpdate();
 
 			if (result > 0) {
-				System.out.println("µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			} else {
-				System.out.println("µî·ÏµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+				System.out.println("ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			}
-			System.out.println(result + "°ÇÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+			System.out.println(result + "ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -182,7 +182,7 @@ public class EmpDAO {
 		}
 	}
 
-	// ¼öÁ¤
+	// ï¿½ï¿½ï¿½ï¿½
 	public void update(Employee emp) {
 		try {
 			connect();
@@ -194,9 +194,9 @@ public class EmpDAO {
 			int result = pstmt.executeUpdate();
 
 			if (result > 0) {
-				System.out.println(result + "Çà µî·ÏÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+				System.out.println(result + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			} else {
-				System.out.println("¼öÁ¤µÇÁö ¾È¾Ò½À´Ï´Ù.");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			}
 
 		} catch (SQLException e) {
@@ -207,7 +207,7 @@ public class EmpDAO {
 
 	}
 
-	// »èÁ¦
+	// ï¿½ï¿½ï¿½ï¿½
 	public void delete(int employeeId) {
 		try {
 			connect();
@@ -215,9 +215,9 @@ public class EmpDAO {
 			stmt = conn.createStatement();
 			int result = stmt.executeUpdate(sql);
 			if (result > 0) {
-				System.out.println("Á¤»óÀûÀ¸·Î »èÁ¦µÇ¾ú½À´Ï´Ù.");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			} else {
-				System.out.println("Á¤»óÀûÀ¸·Î »èÁ¦µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
