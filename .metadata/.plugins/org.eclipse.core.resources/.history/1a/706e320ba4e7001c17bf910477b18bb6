@@ -1,9 +1,0 @@
-package com.yedam.java.ch1501;
-//제네릭 일부사용
-public class Util {
-	public static <T> BoxA<T> boxing(T t){
-		BoxA<T> box = new BoxA<>();
-		box.set(t);
-		return box;
-	}
-}

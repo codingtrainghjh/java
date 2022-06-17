@@ -76,9 +76,9 @@ public class ProductDAO extends DAO {
 			int result = pstmt.executeUpdate();
 
 			if (result > 0) {
-				System.out.println("정상적으로 수정되었습니다.");
+				System.out.println("정상적으로 삭제되었습니다.");
 			} else {
-				System.out.println("정상적으로 수정되지 않았습니다.");
+				System.out.println("정상적으로 삭제되지 않았습니다.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,9 +115,13 @@ public class ProductDAO extends DAO {
 		Product pro = null;
 		try {
 			connect();
-			String sql = "SELECT * FROM product WHERE product_name = " + productName;
+			String sql = "SELECT * FROM product WHERE product_name = '" + productName +"'";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
+//			String sql = "SELECT * FROM product WHERE product_name = ?";
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, productName);
+//			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				pro = new Product();
 				pro.setProductId(rs.getInt("product_id"));

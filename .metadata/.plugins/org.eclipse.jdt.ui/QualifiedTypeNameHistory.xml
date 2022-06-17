@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.util.Calendar"/>
-    <fullyQualifiedTypeName name="com.yedam.jaca.example.Keypad"/>
-    <fullyQualifiedTypeName name="com.yedam.java.question.Payment"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
-    <fullyQualifiedTypeName name="com.yedam.java.question.Member"/>
-    <fullyQualifiedTypeName name="com.yedam.java.question.Gold"/>
     <fullyQualifiedTypeName name="com.yedam.java.ch1201.Calculator"/>
     <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
     <fullyQualifiedTypeName name="com.yedam.java.ch1202.PrintThreadTest"/>
@@ -53,11 +47,17 @@
     <fullyQualifiedTypeName name="java.lang.ClassLoader"/>
     <fullyQualifiedTypeName name="java.io.IOException"/>
     <fullyQualifiedTypeName name="java.io.FileInputStream"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.yedam.java.emp.EmpDAO"/>
-    <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="com.yedam.java.emp.EmpSystem"/>
+    <fullyQualifiedTypeName name="com.yedam.java.emp.DeptDAO"/>
+    <fullyQualifiedTypeName name="com.yedam.java.emp.Department"/>
+    <fullyQualifiedTypeName name="javax.sql.RowSetInternal"/>
+    <fullyQualifiedTypeName name="com.yedam.app.common.StockManagement"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.yedam.app.product.ProductDAO"/>
+    <fullyQualifiedTypeName name="com.yedam.app.product.Product"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>
