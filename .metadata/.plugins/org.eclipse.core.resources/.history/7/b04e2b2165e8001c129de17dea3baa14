@@ -1,5 +1,0 @@
-package com.yedam.java.list;
-
-public class ThreadA extends Thread {
-
-}
