@@ -59,6 +59,26 @@ public class TakeOutGoodsDAO extends DAO{
 				return isSelected;
 			}	
 	//단건조회 - 출고수량
+			public int selectAmount(int productId) {
+				int amount = 0;
+				try {
+					connect();
+					String sql = "SELECT NVL(SUM(product_amount),0) as sum "
+							+ "FROM take_out_goods "
+							+ "WHERE product_id = " + productId;
+					stmt = conn.createStatement();
+					rs = stmt.executeQuery(sql);
+					
+					if(rs.next()) {
+						amount = rs.getInt("sum");
+					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					disconnect();
+				}
+			}
 	//전체조회 - 현재까지 출고된 내역
 	//전체조회 - 해당 날짜에 출고된 내역
 	//전체조회 - 해당 제품의 출고된 내역

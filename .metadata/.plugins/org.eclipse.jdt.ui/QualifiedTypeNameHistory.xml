@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.yedam.java.ch1601.MyFunInterfaceA"/>
-    <fullyQualifiedTypeName name="com.yedam.java.ch1601.MyFunInterfaceB"/>
-    <fullyQualifiedTypeName name="com.yedam.java.ch1601.MyFunInterfaceC"/>
-    <fullyQualifiedTypeName name="java.util.Vector"/>
-    <fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.Iterator"/>
     <fullyQualifiedTypeName name="java.util.HashSet"/>
     <fullyQualifiedTypeName name="java.util.Iterator"/>
     <fullyQualifiedTypeName name="java.util.Map.Entry"/>
@@ -31,7 +26,6 @@
     <fullyQualifiedTypeName name="java.io.IOException"/>
     <fullyQualifiedTypeName name="java.io.FileInputStream"/>
     <fullyQualifiedTypeName name="com.yedam.java.emp.EmpDAO"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="com.yedam.java.emp.EmpSystem"/>
     <fullyQualifiedTypeName name="com.yedam.java.emp.DeptDAO"/>
     <fullyQualifiedTypeName name="com.yedam.java.emp.Department"/>
@@ -39,10 +33,8 @@
     <fullyQualifiedTypeName name="com.yedam.app.common.StockManagement"/>
     <fullyQualifiedTypeName name="com.yedam.app.history.HistroyDAO"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="com.yedam.app.product.ProductDAO"/>
     <fullyQualifiedTypeName name="com.yedam.app.history.HistoryDAO"/>
-    <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
     <fullyQualifiedTypeName name="com.yedam.app.product.Product"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="com.yedam.app.history.History"/>
@@ -55,9 +47,17 @@
     <fullyQualifiedTypeName name="java.sql.Statement"/>
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="com.yedam.app.products.ProductsDAO"/>
+    <fullyQualifiedTypeName name="com.yedam.app.products.ProductManagement"/>
+    <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
+    <fullyQualifiedTypeName name="com.yedam.app.products.ProductInfoManagement"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="com.yedam.app.common.DAO"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="com.yedam.app.deal.ReceivingGoodsDAO"/>
+    <fullyQualifiedTypeName name="com.yedam.app.deal.DealInfo"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
 </qualifiedTypeNameHistroy>
