@@ -34,6 +34,12 @@ public class Rental {
 	}
 	@Override
 	public String toString() {
+		String str = "";
+		if(bookRental == 0) {
+			str = "대여가능";
+		}else {
+			str = "대여중";
+		}
 		return "책제목 : " + bookName + ", 저자명 : " + bookWriter + 
 				", 내용 : " + bookContent + ", 대여여부 : " + bookRental;
 	}

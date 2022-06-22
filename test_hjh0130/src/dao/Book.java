@@ -1,6 +1,6 @@
 package dao;
 
-public class Info {
+public class Book {
 	private String bookName;
 	private String bookWriter;
 	private String bookContent;

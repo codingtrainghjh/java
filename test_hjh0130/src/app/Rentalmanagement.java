@@ -2,8 +2,15 @@ package app;
 
 import java.util.Scanner;
 
+import connect.Connect;
+import connect.ConnectDAO;
+import dao.Book;
+import rental.RentalDAO;
+
 public class Rentalmanagement {
-	private Scanner sc = new Scanner(System.in);
+	protected Scanner sc = new Scanner(System.in);
+	protected ConnectDAO cDAO = ConnectDAO.getInstance();
+	protected RentalDAO rDAO = RentalDAO.getInstance();
 	
 	public Rentalmanagement() {
 	while (true) {
@@ -66,5 +73,35 @@ public class Rentalmanagement {
 
 	private void showInputError() {
 		System.out.println("메뉴를 참고하여 입력해주시기 바랍니다.");
+	}
+	//전체조회
+	private void selectAll() {
+		Connect con = new Connect();
+		System.out.println(con.toString());
+	}
+	//단건조회
+	private void selectOne() {
+		Connect con = new Connect();
+		System.out.println();
+	}
+	//내용검색
+	private void searchContent() {
+		
+	}
+	//대여가능
+	private void availableRental() {
+		
+	}
+	//책대여
+	private void bookRental() {
+		
+	}
+	//책반납
+	private void bookReturn() {
+		
+	}
+	//책등록
+	private void bookRegist() {
+		
 	}
 }
