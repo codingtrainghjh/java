@@ -23,5 +23,6 @@
     <typeInfo handle="=chap12/D:\/dev\/eclipse\/plugins\/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.2.v20220201-1208\/jre\/lib\/jrt-fs.jar`java.base=/module=/true=/=/javadoc_location=/https:\/\/docs.oracle.com\/en\/java\/javase\/17\/docs\/api\/=/&lt;java.lang(Runnable.class[Runnable" modifiers="1537" timestamp="1652835978853"/>
     <typeInfo handle="=chap12/D:\/dev\/eclipse\/plugins\/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.2.v20220201-1208\/jre\/lib\/jrt-fs.jar`java.base=/module=/true=/=/javadoc_location=/https:\/\/docs.oracle.com\/en\/java\/javase\/17\/docs\/api\/=/&lt;java.lang(Thread.class[Thread" modifiers="33" timestamp="1652835978853"/>
     <typeInfo handle="=chap17_JDBC_03/src&lt;com.yedam.app.common{DAO.java[DAO" modifiers="1" timestamp="1655351055495"/>
-    <typeInfo handle="=chap17_JDBC_04/src&lt;com.yedam.app.common{Management.java[Management" modifiers="1" timestamp="1655779237195"/>
+    <typeInfo handle="=chap17_JDBC_04/src&lt;com.yedam.app.common{Management.java[Management" modifiers="1" timestamp="1655783222343"/>
+    <typeInfo handle="=chap17_JDBC_04/src&lt;com.yedam.app.common{DAO.java[DAO" modifiers="1" timestamp="1655686524687"/>
 </typeInfoHistroy>

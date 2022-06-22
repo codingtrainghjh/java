@@ -95,6 +95,7 @@ public class ProductsDAO extends DAO{
 			String sql = "DELETE FROM products "
 					+ "WHERE product_id = " + productId;
 			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

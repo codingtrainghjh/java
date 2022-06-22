@@ -1,6 +1,6 @@
-package com.yedam.java.ch03;
+package app;
 
-public class BufferStreamExample {
+public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

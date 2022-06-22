@@ -1,6 +1,9 @@
 package com.yedam.app.common;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.yedam.app.deal.DealInfo;
 
@@ -78,8 +81,95 @@ public class TakeOutGoodsDAO extends DAO{
 				}finally {
 					disconnect();
 				}
+				return amount;
 			}
 	//전체조회 - 현재까지 출고된 내역
+			public List<DealInfo> selectAll(){
+				List<DealInfo> list = new ArrayList<>();
+				try {
+					connect();
+					String sql = "SELECT t.deal_date, t.product_id ,p.product_name, t.product_amount "
+							+ "FROM products p JOIN take_out_goods t "
+							+ "ON p.product_id = t.product_id "
+							+ "ORDER BY t.deal_date";
+					pstmt = conn.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+						DealInfo info = new DealInfo();
+						info.setDealDate(rs.getDate("deal_date"));
+						info.setProductId(rs.getInt("product_id"));
+						info.setProductName(rs.getString("product_name"));
+						info.setProductAmount(rs.getInt("product_amount"));
+						
+						list.add(info);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					disconnect();
+				}
+				return list;
+				}
 	//전체조회 - 해당 날짜에 출고된 내역
+			public List<DealInfo> selectAll(Date dealDate){
+				List<DealInfo> list = new ArrayList<>();
+				try {
+					connect();
+					String sql = "SELECT t.deal_date, t.product_id, "
+							+ "p.product_name, t.product_amount "
+							+"FROM products p " + "JOIN take_out_goods t "
+							+"ON p.product_id = t.product_id "
+							+"WHERE deal_date = ? "
+							+"ORDER BY t.deal_date";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setDate(1, dealDate);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+						DealInfo info = new DealInfo();
+						info.setDealDate(rs.getDate("deal_date"));
+						info.setProductId(rs.getInt("product_id"));
+						info.setProductName(rs.getString("product_name"));
+						info.setProductAmount(rs.getInt("product_amount"));
+						
+						list.add(info);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					disconnect();
+				}
+				return list;
+				}
 	//전체조회 - 해당 제품의 출고된 내역
+			public List<DealInfo> selectAll(int productId){
+				List<DealInfo> list = new ArrayList<>();
+				try {
+					connect();
+					String sql = "SELECT t.deal_date, t.product_id, "
+							+ "p.product_name, t.product_amount"
+							+"FROM prouducts p " + "JOIN take_out_goods t "
+							+"ON p.product_id = t.product_id "
+							+"WHERE product_id = ?"
+							+"ORDER BY t.deal_date";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, productId);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+						DealInfo info = new DealInfo();
+						info.setDealDate(rs.getDate("deal_date"));
+						info.setProductId(rs.getInt("product_id"));
+						info.setProductName(rs.getString("product_name"));
+						info.setProductAmount(rs.getInt("product_amount"));
+						
+						list.add(info);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					disconnect();
+				}
+				return list;
+				}
+			
 }
+

@@ -1,25 +1,36 @@
 package com.yedam.app.products;
 
+import java.util.List;
+
 import com.yedam.app.common.Management;
 
 public class ProductInfoManagement extends Management{
 	//제품에 대한 정보를 등록, 수정, 삭제
 	public ProductInfoManagement() {
+		boolean role = selectRole();
 		while(true) {
-			menuPrint();
+			menuPrint(role);
 			
 			int menuNo = menuSelect();
 				//제품정보등록
-			if(menuNo == 1) {
+			if(menuNo == 1 && role) {
 				insertProductInfo();
 				
 				//제품정보수정 - 가격
-			}else if(menuNo == 2) {
+			}else if(menuNo == 2 && role) {
 				updateProductInfo();
 				
 				//제품정보삭제
-			}else if(menuNo == 3) {
+			}else if(menuNo == 3 && role) {
 				deleteProductInfo();
+				
+				//제품검색
+			}else if(menuNo == 4) {
+				selectOne();
+				
+				//전체조회
+			}else if(menuNo == 5) {
+				selectAll();
 				
 				//뒤로가기
 			}else if(menuNo == 9) {
@@ -32,11 +43,20 @@ public class ProductInfoManagement extends Management{
 			}
 		}
 	}
-	@Override
-	protected void menuPrint() {
-		System.out.println("===================================");
-		System.out.println(" 1.제품등록 2.제품수정 3.제품삭제 9.뒤로가기");
-		System.out.println("===================================");
+	
+	protected void menuPrint(boolean role) {
+		//권한에 따라 메뉴를 구성
+		String menu = "";
+		if(role) {
+			menu +=" 1.제품등록 "
+					+ "2.제품수정 "
+					+ "3.제품삭제 ";
+		}
+		menu += "4.제품검색 5.전체조회 9.뒤로가기";
+		//해당 메뉴 출력
+		System.out.println("===================================================");
+		System.out.println(menu);
+		System.out.println("===================================================");
 	}
 	
 	private void back() {
@@ -67,6 +87,7 @@ public class ProductInfoManagement extends Management{
 		//DB에서 삭제
 		if(!isSelected) {
 			pDAO.delete(product.getProductId());
+			System.out.println("정상적으로 삭제되었습니다.");
 		}else {
 			System.out.println("거래내역이 존재합니다."); //isSelected가 true라면 반대로 놓으면 됨
 		}
@@ -119,5 +140,24 @@ public class ProductInfoManagement extends Management{
 		}
 		
 		return product;
+	}
+	private void selectOne() {
+		String productName = inputName();
+		
+		Product product = pDAO.selectOne(productName);
+		
+		if(product == null) {
+			System.out.println("등록된 제품이 아닙니다.");
+			return;
+		}
+		System.out.println(product);
+	}
+	
+	private void selectAll() {
+		List<Product> list = pDAO.selectAll();
+		
+		for(Product product : list) {
+			System.out.println(product);
+		}
 	}
 }
