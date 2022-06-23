@@ -46,12 +46,57 @@ public class RentalDAO extends DAO{
 	public void rental(Rental rental) {
 		try {
 			connect();
-			String sql = "UPDATE books SET";
+			String sql = "UPDATE books SET book_rental = ? WHERE book_name = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, rental.getBookName());
-			pstmt.setInt(2, rental.getBookRental());
+			pstmt.setInt(1, rental.getBookRental());
+			pstmt.setString(2, rental.getBookName());
 			
 			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				System.out.println("정상적으로 대여되었습니다.");
+			}else {
+				System.out.println("정상적으로 대여되지 않았습니다.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+	}
+	//책 반납
+	public void restore(Rental rental) {
+		try {
+			connect();
+			String sql = "UPDATE books SET book_rental = ? WHERE book_name = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rental.getBookRental());
+			pstmt.setString(2, rental.getBookName());
+			
+			int result = pstmt.executeUpdate();
+			if(result == 0) {
+				System.out.println("정상적으로 반납되었습니다.");
+			}else {
+				System.out.println("정상적으로 반납되지 않았습니다.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+	}
+	//책 등록
+	public void insert(Rental rental) {
+		try {
+			connect();
+			String sql = "INSERT INTO books (book_name, book_writer, book_content)"
+					+ "VALUES (?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rental.getBookName());
+			pstmt.setString(2, rental.getBookWriter());
+			pstmt.setString(3, rental.getBookContent());
+			
+			int result = pstmt.executeUpdate();
+			
 			if(result > 0) {
 				System.out.println("정상적으로 등록되었습니다.");
 			}else {
@@ -63,6 +108,5 @@ public class RentalDAO extends DAO{
 			disconnect();
 		}
 	}
-	//책 반납
-	//책 등록
+	
 }
