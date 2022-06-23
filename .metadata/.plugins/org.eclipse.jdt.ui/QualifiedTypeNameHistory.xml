@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.io.Writer"/>
-    <fullyQualifiedTypeName name="java.io.OutputStreamWriter"/>
-    <fullyQualifiedTypeName name="java.io.Reader"/>
-    <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
-    <fullyQualifiedTypeName name="java.io.InputStream"/>
     <fullyQualifiedTypeName name="java.io.OutputStream"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
@@ -43,7 +38,6 @@
     <fullyQualifiedTypeName name="com.yedam.app.products.ProductInfoManagement"/>
     <fullyQualifiedTypeName name="com.yedam.app.common.DAO"/>
     <fullyQualifiedTypeName name="com.yedam.app.deal.ReceivingGoodsDAO"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="com.yedam.app.products.Product"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.yedam.app.deal.DealInfo"/>
@@ -51,7 +45,6 @@
     <fullyQualifiedTypeName name="com.yedam.app.deal.ProductStockManagement"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.yedam.app.members.Member"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
     <fullyQualifiedTypeName name="com.yedam.app.members.MembersDAO"/>
     <fullyQualifiedTypeName name="com.yedam.app.common.LoginControl"/>
@@ -59,5 +52,12 @@
     <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="connect.Connect"/>
     <fullyQualifiedTypeName name="dao.DAO"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="lombok.Getter"/>
+    <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="com.yedam.java.common.DAO"/>
+    <fullyQualifiedTypeName name="com.yedam.java.member.Member"/>
+    <fullyQualifiedTypeName name="com.yedam.java.member.MemberDAO"/>
 </qualifiedTypeNameHistroy>

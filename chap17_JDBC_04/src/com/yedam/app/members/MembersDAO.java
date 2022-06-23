@@ -47,4 +47,5 @@ public class MembersDAO extends DAO {
 		}
 		return loginInfo;
 	}
+	//시퀀스 BOARD_NO_SEQ, MEMBER_USER_ID_SEQ
 }

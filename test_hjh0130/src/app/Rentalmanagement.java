@@ -1,10 +1,11 @@
 package app;
 
+
+
 import java.util.Scanner;
 
 import connect.Connect;
 import connect.ConnectDAO;
-import dao.Book;
 import rental.RentalDAO;
 
 public class Rentalmanagement {
