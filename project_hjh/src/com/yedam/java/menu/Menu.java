@@ -14,6 +14,7 @@ public class Menu {
 	private String rName;
 	private String rHP;
 	private String categorize;
+	private String categorize2;
 	
 	@Override
 	public String toString() {

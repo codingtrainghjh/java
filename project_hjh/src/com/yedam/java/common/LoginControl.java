@@ -1,11 +1,12 @@
 package com.yedam.java.common;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.yedam.java.member.Member;
 import com.yedam.java.member.MemberDAO;
 
-public class LoginControl {
+public class LoginControl extends launchLaunch {
 
 	protected Scanner sc = new Scanner(System.in);
 	private static Member LoginInfo = null;
@@ -26,10 +27,10 @@ public class LoginControl {
 				login();
 			} else if (menuNo == 2) {
 				// 비회원 이용
-				launchLaunch();
+				new launchLaunch();
 			} else if (menuNo == 3) {
 				// 회원가입
-				new signUp();
+				signUp();
 			} else if (menuNo == 9) {
 				// 프로그램종료
 				exit();
@@ -92,5 +93,25 @@ public class LoginControl {
 		info.setPassWd(sc.nextLine());
 
 		return info;
+	}
+
+	private void signUp() {
+		Member member = inputAll();
+		mDAO.signUp(member);
+
+	}
+	private Member inputAll() {
+		Member member = new Member();
+		System.out.println("닉네임> ");
+		member.setUserName(sc.nextLine());
+		System.out.println("비밀번호> ");
+		member.setPassWd(sc.nextLine());
+		member.setRegDate(null);
+		System.out.println("좋아하는음식은? ex)한식,중식,일식 등등");
+		member.setInterest(sc.nextLine());
+		System.out.println("이메일> ");
+		member.setEMail(sc.nextLine());
+		
+		return member;
 	}
 }

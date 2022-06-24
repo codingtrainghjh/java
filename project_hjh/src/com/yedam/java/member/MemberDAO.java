@@ -45,4 +45,32 @@ public class MemberDAO extends DAO{
 		}
 		return loginInfo;
 	}
+	
+	//회원가입
+	public void signUp(Member member) {
+		try {
+			connect();
+			String sql = "INSERT INTO member VALUES (MEMBER_USER_ID_SEQ, ?, ?, ?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getUserName());
+			pstmt.setString(2, member.getPassWd());
+			pstmt.setDate(3, member.getRegDate());
+			pstmt.setString(4, member.getInterest());
+			pstmt.setString(5, member.getEMail());
+			
+			int result = pstmt.executeUpdate();
+
+			if (result > 0) {
+				System.out.println("가입을 축하드립니다!");
+			} else {
+				System.out.println("오류가 발생했습니다. 죄송합니다.");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+	
 }

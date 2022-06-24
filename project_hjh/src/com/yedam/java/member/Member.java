@@ -23,8 +23,10 @@ public class Member {
 		
 		if(memberRole == 0) {
 			info = "관리자 계정 : " + userName;
-		}else {
+		}else if(memberRole > 0){
 			info = "일반 계정 : " + userName;
+		}else {
+			info = "비회원 계정"; 
 		}
 		return info;
 	}

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.io.OutputStream"/>
-    <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
     <fullyQualifiedTypeName name="java.io.BufferedInputStream"/>
     <fullyQualifiedTypeName name="java.io.BufferedOutputStream"/>
@@ -29,7 +27,6 @@
     <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="com.yedam.app.StockManagement"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
-    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.sql.Statement"/>
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
@@ -49,7 +46,6 @@
     <fullyQualifiedTypeName name="com.yedam.app.members.MembersDAO"/>
     <fullyQualifiedTypeName name="com.yedam.app.common.LoginControl"/>
     <fullyQualifiedTypeName name="app.Rentalmanagement"/>
-    <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="connect.Connect"/>
     <fullyQualifiedTypeName name="dao.DAO"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
@@ -57,7 +53,11 @@
     <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
-    <fullyQualifiedTypeName name="com.yedam.java.common.DAO"/>
     <fullyQualifiedTypeName name="com.yedam.java.member.Member"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="com.yedam.java.common.DAO"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="com.yedam.java.member.MemberDAO"/>
+    <fullyQualifiedTypeName name="com.yedam.java.menu.MenuDAO"/>
+    <fullyQualifiedTypeName name="com.yedam.java.common.launchLaunch"/>
 </qualifiedTypeNameHistroy>
