@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="getLoginInfo"/>
 		<list key="findhistory">
+			<item value="getLoginInfo"/>
 			<item value="System.out.println(args[i]);"/>
 			<item value="&#x09;&#x09;&#x09;&#x09;System.out.println(args[i]);"/>
 		</list>

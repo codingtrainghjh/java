@@ -1,6 +1,5 @@
 package com.yedam.java.common;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.yedam.java.member.Member;
@@ -12,6 +11,7 @@ public class LoginControl extends launchLaunch {
 	private static Member LoginInfo = null;
 
 	public static Member getLoginInfo() {
+		
 		return LoginInfo;
 	}
 
@@ -27,7 +27,7 @@ public class LoginControl extends launchLaunch {
 				login();
 			} else if (menuNo == 2) {
 				// 비회원 이용
-				new launchLaunch();
+				new launchLaunch().run();
 			} else if (menuNo == 3) {
 				// 회원가입
 				signUp();
@@ -76,6 +76,7 @@ public class LoginControl extends launchLaunch {
 		Member inputInfo = inputMember();
 		// 로그인 시도
 		LoginInfo = MemberDAO.getInstance().selectOne(inputInfo);
+		System.out.println(LoginInfo);
 
 		// 실패할 경우 그대로 메소드 종료
 		if (LoginInfo == null)
