@@ -14,15 +14,14 @@ public class Member {
 	private Date regDate;
 	private String interest;
 	private String eMail;
-	private int memberRole;
 	
 	@Override
 	public String toString() {
 		String info = "";
 		
-		if(memberRole == 0) {
+		if(userId == 0) {
 			info = "관리자 계정 : " + userName;
-		}else if(memberRole > 0){
+		}else if(userId > 0){
 			info = "일반 계정 : " + userName;
 		}else {
 			info = "비회원 계정"; 

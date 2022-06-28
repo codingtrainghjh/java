@@ -11,7 +11,7 @@ public class LoginControl extends launchLaunch {
 	private static Member LoginInfo = null;
 
 	public static Member getLoginInfo() {
-		
+
 		return LoginInfo;
 	}
 
@@ -27,6 +27,7 @@ public class LoginControl extends launchLaunch {
 				login();
 			} else if (menuNo == 2) {
 				// 비회원 이용
+				nonMember();
 				new launchLaunch().run();
 			} else if (menuNo == 3) {
 				// 회원가입
@@ -101,6 +102,7 @@ public class LoginControl extends launchLaunch {
 		mDAO.signUp(member);
 
 	}
+
 	private Member inputAll() {
 		Member member = new Member();
 		System.out.println("닉네임> ");
@@ -112,7 +114,19 @@ public class LoginControl extends launchLaunch {
 		member.setInterest(sc.nextLine());
 		System.out.println("이메일> ");
 		member.setEMail(sc.nextLine());
-		
+
 		return member;
 	}
+
+	private Member nonMember() {
+		Member non = new Member();
+		non.setUserName("nonuser");
+		non.setPassWd("nonuser");
+		LoginInfo = MemberDAO.getInstance().selectOne(non);
+		System.out.println(LoginInfo);
+		
+		return non;
+		
+	}
+
 }

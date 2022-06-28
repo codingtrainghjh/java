@@ -27,9 +27,13 @@ public class MemberDAO extends DAO{
 					//비밀번호 일치
 					// -> 로그인 성공
 					loginInfo = new Member();
+					loginInfo.setUserId(rs.getInt("user_id"));
 					loginInfo.setUserName(rs.getString("user_name"));
 					loginInfo.setPassWd(rs.getString("passwd"));
-					loginInfo.setMemberRole(rs.getInt("member_role"));
+					loginInfo.setRegDate(rs.getDate("reg_date"));
+					loginInfo.setInterest(rs.getString("interest"));
+					loginInfo.setEMail(rs.getString("email"));
+					
 				}else {
 					System.out.println("비밀번호가 일치하지 않습니다.");
 				}
@@ -50,7 +54,7 @@ public class MemberDAO extends DAO{
 	public void signUp(Member member) {
 		try {
 			connect();
-			String sql = "INSERT INTO member VALUES (MEMBER_USER_ID_SEQ, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO member VALUES (MEMBER_USER_ID_SEQ.nextval, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getUserName());
 			pstmt.setString(2, member.getPassWd());

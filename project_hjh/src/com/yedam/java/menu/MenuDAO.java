@@ -16,23 +16,25 @@ public class MenuDAO extends DAO {
 		return dao;
 	}
 		// 점심추천
-		public String recommend(Menu menu) {
-			String result = null;
+		public Menu recommend(String cateGorize, String cateGorize2) {
+			Menu result = null;
 			try {
 				connect();
-				String sql = "SELECT *\r\n"
-						+ "FROM launch\r\n"
-						+ "WHERE categorize = (SELECT categorize\r\n"
-						+ "                                FROM menu\r\n"
-						+ "                                WHERE categorizeNo = ?)\r\n"
-						+ "AND categorize2 = (SELECT categorize2\r\n"
-						+ "                            FROM menu2\r\n"
-						+ "                            WHERE categorize2NO = ?);";
+				String sql = "SELECT * FROM launch WHERE categorize = (SELECT categorize FROM menu WHERE categorizeNo = ?)"
+						+"AND categorize2 = (SELECT categorize2 FROM menu2 WHERE categorize2NO = ?)";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, menu.getCategorize());
-				pstmt.setString(2, menu.getCategorize2());
-			
+				pstmt.setString(1, cateGorize);
+				pstmt.setString(2, cateGorize2);
 				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					result = new Menu();
+					result.setFoodName(rs.getString("food_name"));
+					result.setTaste(rs.getString("taste"));
+					result.setPrice(rs.getString("price"));
+					result.setRName(rs.getString("restaurant_name"));
+					result.setRHP(rs.getString("restaurant_hp"));
+				}
 				
 			
 			} catch (SQLException e) {
