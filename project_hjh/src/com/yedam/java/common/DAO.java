@@ -12,10 +12,10 @@ import java.util.Properties;
 
 public class DAO {
 	//Oracle DB 정보
-	private String jdbcDriver;
-	private String oracleUrl;
-	private String connectedId;
-	private String connectedPwd;
+	private String jdbcDriver = "oracle.jdbc.driver.OracleDriver";
+	private String oracleUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String connectedId = "hr";
+	private String connectedPwd = "hr";
 	
 	//공통으로 사용되는 필드
 	protected Connection conn;
@@ -24,7 +24,7 @@ public class DAO {
 	protected ResultSet rs;
 	
 	public DAO() {
-		dbConfig(); //한번만 실행시키고자 한다면 생성자에서 실행시키면 됨, 메소드에서 실행시키면 정보를 계속 로딩함
+//		dbConfig(); //한번만 실행시키고자 한다면 생성자에서 실행시키면 됨, 메소드에서 실행시키면 정보를 계속 로딩함
 	}
 	
 	//DB에 접속하는 메소드
@@ -43,21 +43,21 @@ public class DAO {
 	
 	
 	//DB 정보를 가져오는 메소드
-	private void dbConfig() {
-		String resource = "config/db.properties";
-		Properties properties = new Properties();
-
-		try {
-			String filePath = ClassLoader.getSystemClassLoader().getResource(resource).getPath();
-			properties.load(new FileInputStream(filePath));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		jdbcDriver = properties.getProperty("driver");
-		oracleUrl = properties.getProperty("url");
-		connectedId = properties.getProperty("id");
-		connectedPwd = properties.getProperty("pwd");
-	}
+//	private void dbConfig() {
+//		String resource = "config/db.properties";
+//		Properties properties = new Properties();
+//
+//		try {
+//			String filePath = ClassLoader.getSystemClassLoader().getResource(resource).getPath();
+//			properties.load(new FileInputStream(filePath));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		jdbcDriver = properties.getProperty("driver");
+//		oracleUrl = properties.getProperty("url");
+//		connectedId = properties.getProperty("id");
+//		connectedPwd = properties.getProperty("pwd");
+//	}
 	//DB 접속을 해제하는 메소드
 	public void disconnect() {
 		try {

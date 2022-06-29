@@ -5629,3 +5629,1043 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+!SESSION 2022-06-29 09:00:37.015 -----------------------------------------------
+eclipse.buildId=4.23.0.I20220308-0310
+java.version=17.0.2
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ko_KR
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.jface 2 0 2022-06-29 09:01:05.232
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-06-29 09:01:05.232
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@7ab8c972,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@76cad511,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-06-29 09:01:05.232
+!MESSAGE A conflict occurred for ALT+SHIFT+R:
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1ff52a71,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
+		Rename the selected item,
+		Category(org.eclipse.ui.category.file,File,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3338d706,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.egit.ui 2 0 2022-06-29 09:01:15.293
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\admin'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-06-29 10:06:49.389
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.yedam.java.common;
+
+import java.util.Scanner;
+
+import com.yedam.java.member.Member;
+import com.yedam.java.member.MemberDAO;
+import com.yedam.java.menu.Menu;
+import com.yedam.java.menu.MenuDAO;
+
+public class launchLaunch {
+	protected Scanner sc = new Scanner(System.in);
+	protected MemberDAO mDAO = MemberDAO.getInstance();
+	protected MenuDAO nDAO = MenuDAO.getInstance();
+	boolean admin = selectRole();
+	boolean nonMember = cheakNonMember();
+
+	public void run() {
+		while (true) {
+			menuPrint();
+
+			int menuNo = menuSelect();
+
+			if (menuNo == 1) {
+				// 점심추천
+				recommendlaunch();
+			} else if (menuNo == 2 && nonMember) {
+				// 메뉴추가
+				addMenu();
+			} else if (menuNo == 3 && nonMember) {
+				// 게시판이용
+				useBoard();
+				menuPrint();
+			} else if (menuNo == 4 && admin && nonMember) {
+				// 회원삭제
+				deleteMember();
+				menuPrint();
+			} else if (menuNo == 5 && admin && nonMember) {
+				// 메뉴삭제
+				deleteMenu();
+				
+			} else if (menuNo == 9) {
+				// 로그아웃\
+				back();
+				break;
+
+			} else {
+				showInputError();
+			}
+
+		}
+	}
+
+	private void back() {
+		System.out.println("메인으로 돌아갑니다.");
+	}
+
+	protected void showInputError() {
+		System.out.println("메뉴에서 입력해주시기 바랍니다.");
+	}
+
+	protected int menuSelect() {
+		int menuNo = 0;
+		try {
+			menuNo = Integer.parseInt(sc.nextLine());
+		} catch (NumberFormatException e) {
+			System.out.println("숫자를 입력해주시기 바랍니다.");
+		}
+		return menuNo;
+	}
+
+	protected void menuPrint() {
+		String menu = "";
+		menu += "1.점심추천받기 ";
+		
+		if (LoginControl.getLoginInfo().getUserId() >= 0) {
+			menu += "2.메뉴추가하기 3.게시판이용(요양중)";
+		}
+		if (LoginControl.getLoginInfo().getUserId() == 0) {
+			menu += " 4.회원삭제(구현중) 5.메뉴삭제(반항중)";
+		}
+			menu += " 9.로그아웃";
+			System.out.println("=========================================================");
+			System.out.println(menu);
+			System.out.println("=========================================================");
+		
+	}
+
+	protected boolean cheakNonMember() {
+		int nonMember;
+		Member loginInfo = LoginControl.getLoginInfo();
+		if (loginInfo == null) {
+			nonMember = -1; // 비회원
+		} else {
+			nonMember = loginInfo.getUserId();
+		}
+		
+		if (nonMember != -1) { // 회원
+			return true;
+		} else {
+			return false; // 비회원
+		}
+
+	}
+
+	protected boolean selectRole() {
+
+		int admin;
+		Member loginInfo = LoginControl.getLoginInfo();
+		if (loginInfo == null) {
+			admin = 0; // 관리자
+		} else {
+			admin = loginInfo.getUserId();
+		}
+
+		if (admin == 0) { // 관리자
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void recommendlaunch() {
+		Menu result = question();
+
+		Menu menu = nDAO.recommend(result.getCategorize(), result.getCategorize2());
+		if (menu != null) {
+			int rand = (Math.random() * menu)=
+			System.out.println(menu);
+		} else {
+			System.out.println("원하는 메뉴를 찾을 수 없습니다.");
+		}
+	}
+
+	private Menu question() {
+		int m = 0;
+		Menu menu = new Menu();
+		System.out.println("어떤걸 드시고 싶으신가요?\r\n" + "1.한식 2.중식 3.일식 4.양식 5.간편식 6.기타 7.아무거나");
+		m = Integer.parseInt(sc.nextLine());
+		menu.setCategorize(String.valueOf(m));
+		
+		
+		if (m == 7) {
+			int random = ((int) (Math.random() * 6) + 1);
+			menu.setCategorize(String.valueOf(random));
+			
+			
+		}
+		System.out.println("밥과 면중에서 어떤걸 드시겠어요?\r\n" + "1.밥 2.면 3.그 외 4.아무거나");
+		m = Integer.parseInt(sc.nextLine());
+		menu.setCategorize2(String.valueOf(m));
+		if (m == 4) {
+
+			int random2 = ((int) (Math.random() * 3) + 1);
+			menu.setCategorize2(String.valueOf(random2));
+			
+		}
+
+		return menu;
+	}
+
+	private void addMenu() {
+		Menu menu = new Menu();
+		System.out.println("이름>");
+		menu.setFoodName(sc.nextLine());
+		System.out.println("식사종류와 음식형태를 제외한 질문들은 꼭 기입하지 않아도 괜찮습니다.");
+		System.out.println("맛 혹은 느낌>");
+		menu.setTaste(sc.nextLine());
+		System.out.println("가격");
+		menu.setPrice(sc.nextLine());
+		System.out.println("가게이름");
+		menu.setRName(sc.nextLine());
+		System.out.println("가게번호");
+		menu.setRHP(sc.nextLine());
+		System.out.println("식사종류 ex)한식,중식,일식,양식,간편식,기타 중에서 기입해주세요.");
+		menu.setCategorize(sc.nextLine());
+		System.out.println("음식형태 ex)밥,면,그 외 중에서 기입해주세요.");
+		menu.setCategorize2(sc.nextLine());
+		
+		nDAO.addmenu(menu);
+
+	}
+
+	private void useBoard() {
+
+	}
+
+	private void deleteMember() {
+
+	}
+
+	private void deleteMenu() {
+		Menu menu = new Menu();
+		System.out.println("어떤 메뉴를 삭제하시겠어요?");
+		menu.setFoodName(sc.nextLine());
+		System.out.println("어느 가게의 메뉴인가요?");
+		menu.setRName(sc.nextLine());
+		
+		nDAO.deletemenu(menu);
+		System.out.println("삭제가 완료되었습니다.");
+		
+		if(menu == null) {
+			System.out.println("삭제되지 않았습니다. 정보를 다시 확인해주세요.");
+		}
+		
+		
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:521)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-06-29 10:06:49.391
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:521)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-06-29 10:06:49.391
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:521)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-06-29 10:06:49.739
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.yedam.java.common;
+
+import java.util.Scanner;
+
+import com.yedam.java.member.Member;
+import com.yedam.java.member.MemberDAO;
+import com.yedam.java.menu.Menu;
+import com.yedam.java.menu.MenuDAO;
+
+public class launchLaunch {
+	protected Scanner sc = new Scanner(System.in);
+	protected MemberDAO mDAO = MemberDAO.getInstance();
+	protected MenuDAO nDAO = MenuDAO.getInstance();
+	boolean admin = selectRole();
+	boolean nonMember = cheakNonMember();
+
+	public void run() {
+		while (true) {
+			menuPrint();
+
+			int menuNo = menuSelect();
+
+			if (menuNo == 1) {
+				// 점심추천
+				recommendlaunch();
+			} else if (menuNo == 2 && nonMember) {
+				// 메뉴추가
+				addMenu();
+			} else if (menuNo == 3 && nonMember) {
+				// 게시판이용
+				useBoard();
+				menuPrint();
+			} else if (menuNo == 4 && admin && nonMember) {
+				// 회원삭제
+				deleteMember();
+				menuPrint();
+			} else if (menuNo == 5 && admin && nonMember) {
+				// 메뉴삭제
+				deleteMenu();
+				
+			} else if (menuNo == 9) {
+				// 로그아웃\
+				back();
+				break;
+
+			} else {
+				showInputError();
+			}
+
+		}
+	}
+
+	private void back() {
+		System.out.println("메인으로 돌아갑니다.");
+	}
+
+	protected void showInputError() {
+		System.out.println("메뉴에서 입력해주시기 바랍니다.");
+	}
+
+	protected int menuSelect() {
+		int menuNo = 0;
+		try {
+			menuNo = Integer.parseInt(sc.nextLine());
+		} catch (NumberFormatException e) {
+			System.out.println("숫자를 입력해주시기 바랍니다.");
+		}
+		return menuNo;
+	}
+
+	protected void menuPrint() {
+		String menu = "";
+		menu += "1.점심추천받기 ";
+		
+		if (LoginControl.getLoginInfo().getUserId() >= 0) {
+			menu += "2.메뉴추가하기 3.게시판이용(요양중)";
+		}
+		if (LoginControl.getLoginInfo().getUserId() == 0) {
+			menu += " 4.회원삭제(구현중) 5.메뉴삭제(반항중)";
+		}
+			menu += " 9.로그아웃";
+			System.out.println("=========================================================");
+			System.out.println(menu);
+			System.out.println("=========================================================");
+		
+	}
+
+	protected boolean cheakNonMember() {
+		int nonMember;
+		Member loginInfo = LoginControl.getLoginInfo();
+		if (loginInfo == null) {
+			nonMember = -1; // 비회원
+		} else {
+			nonMember = loginInfo.getUserId();
+		}
+		
+		if (nonMember != -1) { // 회원
+			return true;
+		} else {
+			return false; // 비회원
+		}
+
+	}
+
+	protected boolean selectRole() {
+
+		int admin;
+		Member loginInfo = LoginControl.getLoginInfo();
+		if (loginInfo == null) {
+			admin = 0; // 관리자
+		} else {
+			admin = loginInfo.getUserId();
+		}
+
+		if (admin == 0) { // 관리자
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void recommendlaunch() {
+		Menu result = question();
+
+		Menu menu = nDAO.recommend(result.getCategorize(), result.getCategorize2());
+		if (menu != null) {
+			int rand = (Math.random() * menu)=1
+			System.out.println(menu);
+		} else {
+			System.out.println("원하는 메뉴를 찾을 수 없습니다.");
+		}
+	}
+
+	private Menu question() {
+		int m = 0;
+		Menu menu = new Menu();
+		System.out.println("어떤걸 드시고 싶으신가요?\r\n" + "1.한식 2.중식 3.일식 4.양식 5.간편식 6.기타 7.아무거나");
+		m = Integer.parseInt(sc.nextLine());
+		menu.setCategorize(String.valueOf(m));
+		
+		
+		if (m == 7) {
+			int random = ((int) (Math.random() * 6) + 1);
+			menu.setCategorize(String.valueOf(random));
+			
+			
+		}
+		System.out.println("밥과 면중에서 어떤걸 드시겠어요?\r\n" + "1.밥 2.면 3.그 외 4.아무거나");
+		m = Integer.parseInt(sc.nextLine());
+		menu.setCategorize2(String.valueOf(m));
+		if (m == 4) {
+
+			int random2 = ((int) (Math.random() * 3) + 1);
+			menu.setCategorize2(String.valueOf(random2));
+			
+		}
+
+		return menu;
+	}
+
+	private void addMenu() {
+		Menu menu = new Menu();
+		System.out.println("이름>");
+		menu.setFoodName(sc.nextLine());
+		System.out.println("식사종류와 음식형태를 제외한 질문들은 꼭 기입하지 않아도 괜찮습니다.");
+		System.out.println("맛 혹은 느낌>");
+		menu.setTaste(sc.nextLine());
+		System.out.println("가격");
+		menu.setPrice(sc.nextLine());
+		System.out.println("가게이름");
+		menu.setRName(sc.nextLine());
+		System.out.println("가게번호");
+		menu.setRHP(sc.nextLine());
+		System.out.println("식사종류 ex)한식,중식,일식,양식,간편식,기타 중에서 기입해주세요.");
+		menu.setCategorize(sc.nextLine());
+		System.out.println("음식형태 ex)밥,면,그 외 중에서 기입해주세요.");
+		menu.setCategorize2(sc.nextLine());
+		
+		nDAO.addmenu(menu);
+
+	}
+
+	private void useBoard() {
+
+	}
+
+	private void deleteMember() {
+
+	}
+
+	private void deleteMenu() {
+		Menu menu = new Menu();
+		System.out.println("어떤 메뉴를 삭제하시겠어요?");
+		menu.setFoodName(sc.nextLine());
+		System.out.println("어느 가게의 메뉴인가요?");
+		menu.setRName(sc.nextLine());
+		
+		nDAO.deletemenu(menu);
+		System.out.println("삭제가 완료되었습니다.");
+		
+		if(menu == null) {
+			System.out.println("삭제되지 않았습니다. 정보를 다시 확인해주세요.");
+		}
+		
+		
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:521)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.ui 4 2 2022-06-29 10:06:49.742
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.ui".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:521)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.ui 4 0 2022-06-29 10:06:49.743
+!MESSAGE Error in JDT Core during reconcile
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.AST.convertCompilationUnit(AST.java:521)
+	at org.eclipse.jdt.internal.core.CompilationUnit.buildStructure(CompilationUnit.java:201)
+	at org.eclipse.jdt.internal.core.Openable.generateInfos(Openable.java:266)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:597)
+	at org.eclipse.jdt.internal.core.CompilationUnit.makeConsistent(CompilationUnit.java:1142)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.makeConsistent(ReconcileWorkingCopyOperation.java:173)
+	at org.eclipse.jdt.internal.core.ReconcileWorkingCopyOperation.executeOperation(ReconcileWorkingCopyOperation.java:94)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:740)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:806)
+	at org.eclipse.jdt.internal.core.CompilationUnit.reconcile(CompilationUnit.java:1319)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:132)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy$1.run(JavaReconcilingStrategy.java:94)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:91)
+	at org.eclipse.jdt.internal.ui.text.java.JavaReconcilingStrategy.reconcile(JavaReconcilingStrategy.java:158)
+	at org.eclipse.jdt.internal.ui.text.CompositeReconcilingStrategy.reconcile(CompositeReconcilingStrategy.java:94)
+	at org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy.reconcile(JavaCompositeReconcilingStrategy.java:107)
+	at org.eclipse.jface.text.reconciler.MonoReconciler.process(MonoReconciler.java:76)
+	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
+
+!ENTRY org.eclipse.jdt.core 4 4 2022-06-29 10:06:49.759
+!MESSAGE Exception occurred during compilation unit conversion:
+----------------------------------- SOURCE BEGIN -------------------------------------
+package com.yedam.java.common;
+
+import java.util.Scanner;
+
+import com.yedam.java.member.Member;
+import com.yedam.java.member.MemberDAO;
+import com.yedam.java.menu.Menu;
+import com.yedam.java.menu.MenuDAO;
+
+public class launchLaunch {
+	protected Scanner sc = new Scanner(System.in);
+	protected MemberDAO mDAO = MemberDAO.getInstance();
+	protected MenuDAO nDAO = MenuDAO.getInstance();
+	boolean admin = selectRole();
+	boolean nonMember = cheakNonMember();
+
+	public void run() {
+		while (true) {
+			menuPrint();
+
+			int menuNo = menuSelect();
+
+			if (menuNo == 1) {
+				// 점심추천
+				recommendlaunch();
+			} else if (menuNo == 2 && nonMember) {
+				// 메뉴추가
+				addMenu();
+			} else if (menuNo == 3 && nonMember) {
+				// 게시판이용
+				useBoard();
+				menuPrint();
+			} else if (menuNo == 4 && admin && nonMember) {
+				// 회원삭제
+				deleteMember();
+				menuPrint();
+			} else if (menuNo == 5 && admin && nonMember) {
+				// 메뉴삭제
+				deleteMenu();
+				
+			} else if (menuNo == 9) {
+				// 로그아웃\
+				back();
+				break;
+
+			} else {
+				showInputError();
+			}
+
+		}
+	}
+
+	private void back() {
+		System.out.println("메인으로 돌아갑니다.");
+	}
+
+	protected void showInputError() {
+		System.out.println("메뉴에서 입력해주시기 바랍니다.");
+	}
+
+	protected int menuSelect() {
+		int menuNo = 0;
+		try {
+			menuNo = Integer.parseInt(sc.nextLine());
+		} catch (NumberFormatException e) {
+			System.out.println("숫자를 입력해주시기 바랍니다.");
+		}
+		return menuNo;
+	}
+
+	protected void menuPrint() {
+		String menu = "";
+		menu += "1.점심추천받기 ";
+		
+		if (LoginControl.getLoginInfo().getUserId() >= 0) {
+			menu += "2.메뉴추가하기 3.게시판이용(요양중)";
+		}
+		if (LoginControl.getLoginInfo().getUserId() == 0) {
+			menu += " 4.회원삭제(구현중) 5.메뉴삭제(반항중)";
+		}
+			menu += " 9.로그아웃";
+			System.out.println("=========================================================");
+			System.out.println(menu);
+			System.out.println("=========================================================");
+		
+	}
+
+	protected boolean cheakNonMember() {
+		int nonMember;
+		Member loginInfo = LoginControl.getLoginInfo();
+		if (loginInfo == null) {
+			nonMember = -1; // 비회원
+		} else {
+			nonMember = loginInfo.getUserId();
+		}
+		
+		if (nonMember != -1) { // 회원
+			return true;
+		} else {
+			return false; // 비회원
+		}
+
+	}
+
+	protected boolean selectRole() {
+
+		int admin;
+		Member loginInfo = LoginControl.getLoginInfo();
+		if (loginInfo == null) {
+			admin = 0; // 관리자
+		} else {
+			admin = loginInfo.getUserId();
+		}
+
+		if (admin == 0) { // 관리자
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void recommendlaunch() {
+		Menu result = question();
+
+		Menu menu = nDAO.recommend(result.getCategorize(), result.getCategorize2());
+		if (menu != null) {
+			int rand = (Math.random() * menu)=1
+			System.out.println(menu);
+		} else {
+			System.out.println("원하는 메뉴를 찾을 수 없습니다.");
+		}
+	}
+
+	private Menu question() {
+		int m = 0;
+		Menu menu = new Menu();
+		System.out.println("어떤걸 드시고 싶으신가요?\r\n" + "1.한식 2.중식 3.일식 4.양식 5.간편식 6.기타 7.아무거나");
+		m = Integer.parseInt(sc.nextLine());
+		menu.setCategorize(String.valueOf(m));
+		
+		
+		if (m == 7) {
+			int random = ((int) (Math.random() * 6) + 1);
+			menu.setCategorize(String.valueOf(random));
+			
+			
+		}
+		System.out.println("밥과 면중에서 어떤걸 드시겠어요?\r\n" + "1.밥 2.면 3.그 외 4.아무거나");
+		m = Integer.parseInt(sc.nextLine());
+		menu.setCategorize2(String.valueOf(m));
+		if (m == 4) {
+
+			int random2 = ((int) (Math.random() * 3) + 1);
+			menu.setCategorize2(String.valueOf(random2));
+			
+		}
+
+		return menu;
+	}
+
+	private void addMenu() {
+		Menu menu = new Menu();
+		System.out.println("이름>");
+		menu.setFoodName(sc.nextLine());
+		System.out.println("식사종류와 음식형태를 제외한 질문들은 꼭 기입하지 않아도 괜찮습니다.");
+		System.out.println("맛 혹은 느낌>");
+		menu.setTaste(sc.nextLine());
+		System.out.println("가격");
+		menu.setPrice(sc.nextLine());
+		System.out.println("가게이름");
+		menu.setRName(sc.nextLine());
+		System.out.println("가게번호");
+		menu.setRHP(sc.nextLine());
+		System.out.println("식사종류 ex)한식,중식,일식,양식,간편식,기타 중에서 기입해주세요.");
+		menu.setCategorize(sc.nextLine());
+		System.out.println("음식형태 ex)밥,면,그 외 중에서 기입해주세요.");
+		menu.setCategorize2(sc.nextLine());
+		
+		nDAO.addmenu(menu);
+
+	}
+
+	private void useBoard() {
+
+	}
+
+	private void deleteMember() {
+
+	}
+
+	private void deleteMenu() {
+		Menu menu = new Menu();
+		System.out.println("어떤 메뉴를 삭제하시겠어요?");
+		menu.setFoodName(sc.nextLine());
+		System.out.println("어느 가게의 메뉴인가요?");
+		menu.setRName(sc.nextLine());
+		
+		nDAO.deletemenu(menu);
+		System.out.println("삭제가 완료되었습니다.");
+		
+		if(menu == null) {
+			System.out.println("삭제되지 않았습니다. 정보를 다시 확인해주세요.");
+		}
+		
+		
+	}
+}
+
+----------------------------------- SOURCE END -------------------------------------
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1271)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:189)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 2 2022-06-29 10:06:49.761
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.jdt.core.manipulation".
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1271)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:189)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.jdt.core.manipulation 4 0 2022-06-29 10:06:49.761
+!MESSAGE Error in JDT Core during AST creation
+!STACK 0
+java.lang.IllegalArgumentException
+	at org.eclipse.jdt.core.dom.InfixExpression.setOperator(InfixExpression.java:383)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1287)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2047)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToParenthesizedExpression(ASTConverter.java:3853)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1953)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1204)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1990)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationFragment(ASTConverter.java:3986)
+	at org.eclipse.jdt.core.dom.ASTConverter.convertToVariableDeclarationStatement(ASTConverter.java:4066)
+	at org.eclipse.jdt.core.dom.ASTConverter.checkAndAddMultipleLocalDeclaration(ASTConverter.java:561)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1381)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3013)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:2243)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3037)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:751)
+	at org.eclipse.jdt.core.dom.ASTConverter.buildBodyDeclarations(ASTConverter.java:208)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:3390)
+	at org.eclipse.jdt.core.dom.ASTConverter.convert(ASTConverter.java:1534)
+	at org.eclipse.jdt.core.dom.CompilationUnitResolver.convert(CompilationUnitResolver.java:323)
+	at org.eclipse.jdt.core.dom.ASTParser.internalCreateAST(ASTParser.java:1271)
+	at org.eclipse.jdt.core.dom.ASTParser.createAST(ASTParser.java:868)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider$1.run(CoreASTProvider.java:294)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.createAST(CoreASTProvider.java:286)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:199)
+	at org.eclipse.jdt.core.manipulation.CoreASTProvider.getAST(CoreASTProvider.java:189)
+	at org.eclipse.jdt.core.manipulation.SharedASTProviderCore.getAST(SharedASTProviderCore.java:138)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup.calculateASTandInform(SelectionListenerWithASTManager.java:166)
+	at org.eclipse.jdt.internal.ui.viewsupport.SelectionListenerWithASTManager$PartListenerGroup$1.run(SelectionListenerWithASTManager.java:151)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)

@@ -109,7 +109,6 @@ public class LoginControl extends launchLaunch {
 		member.setUserName(sc.nextLine());
 		System.out.println("비밀번호> ");
 		member.setPassWd(sc.nextLine());
-		member.setRegDate(null);
 		System.out.println("좋아하는음식은? ex)한식,중식,일식 등등");
 		member.setInterest(sc.nextLine());
 		System.out.println("이메일> ");

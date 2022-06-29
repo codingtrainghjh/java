@@ -1,5 +1,6 @@
 package com.yedam.java.member;
 
+import java.sql.Date;
 import java.sql.SQLException;
 
 import com.yedam.java.common.DAO;
@@ -54,13 +55,12 @@ public class MemberDAO extends DAO{
 	public void signUp(Member member) {
 		try {
 			connect();
-			String sql = "INSERT INTO member VALUES (MEMBER_USER_ID_SEQ.nextval, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO member VALUES (MEMBER_USER_ID_SEQ.nextval, ?, ?, SYSDATE, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getUserName());
 			pstmt.setString(2, member.getPassWd());
-			pstmt.setDate(3, member.getRegDate());
-			pstmt.setString(4, member.getInterest());
-			pstmt.setString(5, member.getEMail());
+			pstmt.setString(3, member.getInterest());
+			pstmt.setString(4, member.getEMail());
 			
 			int result = pstmt.executeUpdate();
 
@@ -73,6 +73,44 @@ public class MemberDAO extends DAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			disconnect();
+		}
+	}
+	public Member search(String username) {
+		Member member = null;
+		try {
+			connect();
+			String sql = "SELECT * FROM member WHERE user_name = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new Member();
+				member.setUserName(rs.getString("user_name"));
+				member.setPassWd(rs.getString("passwd"));
+				member.setInterest(rs.getString("interest"));
+				member.setEMail(rs.getString("email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return member;
+	}
+	public void delete(String username) {
+		try {
+			connect();
+			String sql = "DELETE FROM member WHERE user_name = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			rs = pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
 			disconnect();
 		}
 	}

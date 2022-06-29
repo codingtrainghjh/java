@@ -1,8 +1,11 @@
 package com.yedam.java.menu;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.yedam.java.common.DAO;
+import com.yedam.java.member.Member;
 
 public class MenuDAO extends DAO {
 	private static MenuDAO dao = null;
@@ -16,8 +19,9 @@ public class MenuDAO extends DAO {
 		return dao;
 	}
 		// 점심추천
-		public Menu recommend(String cateGorize, String cateGorize2) {
+		public List<Menu> recommend(String cateGorize, String cateGorize2) {
 			Menu result = null;
+			List<Menu> list = new ArrayList<Menu>();
 			try {
 				connect();
 				String sql = "SELECT * FROM launch WHERE categorize = (SELECT categorize FROM menu WHERE categorizeNo = ?)"
@@ -27,14 +31,17 @@ public class MenuDAO extends DAO {
 				pstmt.setString(2, cateGorize2);
 				rs = pstmt.executeQuery();
 				
-				if(rs.next()) {
+				while(rs.next()) {
 					result = new Menu();
 					result.setFoodName(rs.getString("food_name"));
 					result.setTaste(rs.getString("taste"));
 					result.setPrice(rs.getString("price"));
 					result.setRName(rs.getString("restaurant_name"));
 					result.setRHP(rs.getString("restaurant_hp"));
+					
+					list.add(result);
 				}
+				
 				
 			
 			} catch (SQLException e) {
@@ -42,7 +49,7 @@ public class MenuDAO extends DAO {
 			}finally {
 				disconnect();
 			}
-			return result ;
+			return list ;
 		}
 		// 메뉴추가
 		public void addmenu(Menu menu) {
@@ -70,14 +77,44 @@ public class MenuDAO extends DAO {
 				disconnect();
 			}
 		}
+		// 메뉴찾기
+		public Menu search(String foodname, String rname) {
+			Menu menu = null;
+			try {
+				connect();
+				String sql = "SELECT * FROM launch WHERE food_name = ? AND restaurant_name = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, foodname);
+				pstmt.setString(2, rname);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					menu = new Menu();
+					menu.setFoodName(rs.getString("food_name"));
+					menu.setTaste(rs.getString("taste"));
+					menu.setPrice(rs.getString("price"));
+					menu.setRName(rs.getString("restaurant_name"));
+					menu.setRHP(rs.getString("restaurant_HP"));
+					menu.setCategorize(rs.getString("categorize"));
+					menu.setCategorize2(rs.getString("categorize2"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				disconnect();
+			}
+			return menu;
+		}
+		
 		// 메뉴삭제
 		public void deletemenu(Menu menu) {
 			try {
 				connect();
-				String sql = "DELETE FROM launch WHERE rName = ? AND food_name = ?";
+				String sql = "DELETE FROM launch WHERE food_name = ? AND restaurant_name = ?";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, menu.getRName());
-				pstmt.setString(2, menu.getFoodName());
+				pstmt.setString(2, menu.getRName());
+				pstmt.setString(1, menu.getFoodName());
 				
 				int result = pstmt.executeUpdate();
 				if(result > 0) {
